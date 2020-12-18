@@ -47,7 +47,6 @@ public class BrowserActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(getApplicationContext(),1);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        array = new GifArray();
         gifService = GifRepositery.getInstance().create(GifService.class);
         loadFirstPage();
 
@@ -57,7 +56,6 @@ public class BrowserActivity extends AppCompatActivity {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    progressBar2.setVisibility(View.VISIBLE);
                       isScrolled = true;
                 }
             }
@@ -68,9 +66,10 @@ public class BrowserActivity extends AppCompatActivity {
                 currentItoms = layoutManager.getChildCount();
                 totalItems = layoutManager.getItemCount();
                 scrolledItems = layoutManager.findFirstVisibleItemPosition();
-                //System.out.println(currentItoms+" "+totalItems+scrolledItems);
+                System.out.println(currentItoms+" "+totalItems+" "+scrolledItems);
                 if(isScrolled && currentItoms + scrolledItems == totalItems){
                     if(counter < 10) {
+                        isScrolled = false;
                         counter++;
                         loadNextPage();
                     }
@@ -85,10 +84,10 @@ public class BrowserActivity extends AppCompatActivity {
     }
   ///Method for loading first page
     private void loadFirstPage() {
+        progressBar.setVisibility(View.VISIBLE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                progressBar.setVisibility(View.VISIBLE);
                 Call<GifArray> call = gifService.get_url(String_Constants.api_key,25,0);
                 call.enqueue(new Callback<GifArray>() {
                     @Override
@@ -113,6 +112,7 @@ public class BrowserActivity extends AppCompatActivity {
 
        /// Method For loading next page
         public void loadNextPage(){
+        progressBar2.setVisibility(View.VISIBLE);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -125,10 +125,9 @@ public class BrowserActivity extends AppCompatActivity {
                             for(int i = 0; i<array1.getData().size();i++){
                                 array.getData().add(array1.getData().get(i));
                             }
-                            adapter = new GiffAdapter(array,getApplicationContext());
-                            recyclerView.setAdapter(adapter);
-                            progressBar2.setVisibility(View.INVISIBLE);
+                            //recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+                            progressBar2.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -137,7 +136,7 @@ public class BrowserActivity extends AppCompatActivity {
                         }
                     });
                 }
-            },1000);
+            },5000);
         }
 
 
