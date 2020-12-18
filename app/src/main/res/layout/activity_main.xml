@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Activity.BrowserActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trending GIFs"
+        android:textSize="40dp"
+        android:textStyle="italic"
+        android:id="@+id/text"
+        android:textColor="@color/teal_700"/>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"/>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:id="@+id/recycler_view"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/text"
+            android:layout_marginTop="10dp"/>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress2"
+        android:layout_marginTop="10dp"
+        android:foregroundGravity="center"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>
