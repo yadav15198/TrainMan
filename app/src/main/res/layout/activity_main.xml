@@ -38,7 +38,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/progress2"
         android:layout_marginTop="10dp"
-        android:foregroundGravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:visibility="invisible"
         android:layout_centerHorizontal="true"/>
 
